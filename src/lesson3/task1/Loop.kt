@@ -70,13 +70,13 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun digitNumber(n: Int): Int  {
-    var x= n
+fun digitNumber(n: Int): Int {
     var result=0
+    var x=n
     do {
-       result ++
         x/=10
-    } while (x>0)
+        result++
+    } while (x!=0)
 return result
 }
 
@@ -86,12 +86,12 @@ return result
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int  {
+fun fib(n: Int): Int {
     var x=1
     var y=1
     var z=1
 
-    for (i in 3..n){
+    for (i in 3..n) {
         z=x+y
         x=y
         y=z
@@ -105,7 +105,7 @@ fun fib(n: Int): Int  {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int  {
+fun lcm(m: Int, n: Int): Int {
     val min= min(m,n)
     var k=1
     for (i in 2..min) {
@@ -119,7 +119,7 @@ fun lcm(m: Int, n: Int): Int  {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int  {
+fun minDivisor(n: Int): Int {
     var min = 2
     while (n % min != 0) {
         min ++
@@ -141,7 +141,7 @@ fun maxDivisor(n: Int): Int = n / minDivisor(n)
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean  {
+fun isCoPrime(m: Int, n: Int): Boolean {
     val min= min(m,n)
     for (i in 2..min){
         if (m % i==0 && n % i==0)
@@ -157,13 +157,11 @@ fun isCoPrime(m: Int, n: Int): Boolean  {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean  {
-    val f=false
-    for (i in 1..sqrt(n.toDouble()).toInt()){
-        if (sqr(i)<=n && sqr(i)>=m)
-            return true
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    for (i in sqrt(m.toDouble()).toInt()..sqrt(n.toDouble()).toInt()) {
+        if (sqr(i) in m..n) return true
     }
-return f
+    return false
 }
 
 /**
@@ -182,14 +180,14 @@ return f
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int  {
+fun collatzSteps(x: Int): Int {
     var count=0
     var num=x
-    while (num != 1){
-        if (num % 2 == 0){
+    while (num !=1){
+        if (num %2==0){
             num /=2
         } else {
-            num = 3*num+1
+            num=3*num+1
         }
         count ++
     }
@@ -204,7 +202,7 @@ fun collatzSteps(x: Int): Int  {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double  {
+fun sin(x: Double, eps: Double): Double {
     val a=x%(2*PI)
     var i=a
     var res= 0.0
@@ -234,7 +232,7 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int  {
+fun revert(n: Int): Int {
     var count=0
     var num=n
     while (num !=0){
@@ -253,7 +251,7 @@ fun revert(n: Int): Int  {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean= TODO()
+fun isPalindrome(n: Int): Boolean = revert(n)==n
 /**
  * Средняя
  *
