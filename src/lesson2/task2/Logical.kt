@@ -21,7 +21,7 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean =
-    number/1000+(number/100)%10==(number/10)%10+number%10
+        number / 1000 + (number / 100) % 10 == (number / 10) % 10 + number % 10
 
 
 /**
@@ -52,7 +52,7 @@ fun daysInMonth(month: Int, year: Int): Int = TODO()
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean =
-        r2 >= sqrt(sqr(x2-x1)+sqr(y2-y1))+r1
+        r2 >= sqrt(sqr(x2 - x1) + sqr(y2 - y1)) + r1
 
 /**
  * Средняя
@@ -63,7 +63,7 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean  {
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     val length = min(min(a, b), c)
     val width = max(max(a, b), c)
     val height = a + b + c - length - width
