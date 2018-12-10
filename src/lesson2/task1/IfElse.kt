@@ -100,8 +100,7 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
         t = 2
     if (kingX == rookX1 || kingY == rookY1)
         t++
-    return (t)
-
+    return t
 }
 
 /**
