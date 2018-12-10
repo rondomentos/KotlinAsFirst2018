@@ -54,7 +54,15 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val txt = File(inputName).readText().toLowerCase()
+    val resMap = mutableMapOf<String, Int>()
+    for (p in substrings) {
+        val count = Regex(p.toLowerCase()).findAll(txt)
+        resMap[p] = count.toList().size
+    }
+    return resMap
+}
 
 
 /**
@@ -71,7 +79,11 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val txt = File(inputName).readText()
+    val newMap = mutableMapOf("Ы" to "И", "ы" to "и", "Я" to "А", "я" to "а", "ю" to "у", "Ю" to "У")
+    val writer = File(outputName).bufferedWriter()
+    writer.write(txt.replace(Regex("(?<=[жЖшШчЧщЩ])([ыЫюЮяЯ])")) { newMap[it.value].toString() })
+    writer.close()
 }
 
 /**
