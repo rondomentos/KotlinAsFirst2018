@@ -151,23 +151,12 @@ class Line private constructor(val b: Double, val angle: Double) {
     override fun toString() = "Line(${cos(angle)} * y = ${sin(angle)} * x + $b)"
 }
 
-fun checkAngel(angle: Double): Double =
-        when {
-            angle >= PI -> angle - PI
-            angle >= 0 -> angle
-            else -> angle + PI
-        }
 /**
  * Средняя
  *
  * Построить прямую по отрезку
  */
-fun lineBySegment(s: Segment): Line {
-    var angel = atan((s.end.y - s.begin.y) / (s.end.x - s.begin.x))
-    angel = checkAngel(angel)
-    return Line(s.begin, angel)
-}
-
+fun lineBySegment(s: Segment): Line = TODO()
 /**
  * Средняя
  *

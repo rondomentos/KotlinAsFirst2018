@@ -73,41 +73,27 @@ fun main(args: Array<String>) {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun convertToDigit(str: String): Int =
-when (str) {
-    "января" -> 1
-    "февраля" -> 2
-    "марта" -> 3
-    "апреля" -> 4
-    "мая" -> 5
-    "июня" -> 6
-    "июля" -> 7
-    "августа" -> 8
-    "сентября" -> 9
-    "октября" -> 10
-    "ноября" -> 11
-    "декабря" -> 12
-    else -> throw IllegalArgumentException()
-}
 fun dateStrToDigit(str: String): String {
-
-    try {
-        val strToSplit = str.split(" ")
-        val digitMonth = convertToDigit(strToSplit[1])
-        val day = strToSplit[0].toInt()
-        val year = strToSplit[2].toInt()
-
-        if (day !in 1..daysInMonth(digitMonth, year)) {
-            throw IllegalArgumentException()
-        }
-
-        return String.format("%02d.%02d.%d", day, digitMonth, year)
-    }
-
-    catch (e: Exception) {
-        return ""
+    val month = listOf(
+            "января", "февраля", "марта", "апреля",
+            "мая", "июня", "июля", "августа",
+            "сентября", "октября", "ноября", "декабря")
+    return try {
+        if (!Regex("""\d{1,2}\s[а-я]*\s\d{1,4}""").matches(str)) throw Exception()
+        val day = str.split(" ")[0].toInt()
+        val curmonth = str.split(" ")[1]
+        val year = str.split(" ")[2].toInt()
+        val monthNumber = month.indexOf(curmonth) + 1
+        if (monthNumber !in 1..12) throw Exception()
+        val maxDayInMonth = daysInMonth(monthNumber, year)
+        if (day > maxDayInMonth) throw Exception()
+        String.format("%02d.%02d.%d", day, monthNumber, year)
+    } catch (exc: Exception) {
+        ""
     }
 }
+
+
 
 /**
  * Средняя
@@ -134,9 +120,10 @@ fun dateDigitToStr(digital: String): String = TODO()
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    if (phone.matches(Regex("^[+]?[-()0-9 ]+"))) {
-        return phone.replace(Regex("[-() ]+"), "")
-    } else return ""
+    if (Regex("""\d+""").matches(phone)) return phone
+    if (Regex("""^\+?([\d\-()\s])+""").matches(phone))
+        return Regex("""(\s)|(-)|(\()|(\))""").replace(phone, "")
+    return ""
 }
 /**
  * Средняя
@@ -148,7 +135,7 @@ fun flattenPhoneNumber(phone: String): String {
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO ()
+fun bestLongJump(jumps: String): Int = TODO()
 
 /**
  * Сложная
@@ -162,13 +149,14 @@ fun bestLongJump(jumps: String): Int = TODO ()
  */
 fun bestHighJump(jumps: String): Int {
     val parts = jumps.split(" ")
-    var longestjump = -1
-    for (part in 1 until parts.size step 2) {
+    var longestJump = -1
+    for (part in 1 until (parts.size - 1) step 2) {
         for (j in parts[part]) {
-            if ((j == '+') && (longestjump < parts[part - 1].toInt())) longestjump = parts[part - 1].toInt()
+            val jump = parts[part - 1].toInt()
+            if ((j == '+') && (longestJump < jump)) longestJump = jump
         }
     }
-    return longestjump
+    return longestJump
 }
 
 /**
@@ -180,12 +168,10 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int {
-    if (!expression.matches(Regex("""\d+(?:\s*[-+]\s*\d+)*"""))){
-        throw IllegalArgumentException()
-    }else
-        return(expression.replace(" ","").split(Regex("""(?=[-+])""")).sumBy { it.toInt() })
-}
+fun plusMinus(expression: String): Int =
+        if (!expression.matches(Regex("""\d+(?:\s*[-+]\s*\d+)*"""))) throw IllegalArgumentException()
+        else (expression.replace(" ","").split(Regex("""(?=[-+])""")).sumBy { it.toInt() })
+
 
 /**
  * Сложная
