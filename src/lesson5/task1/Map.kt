@@ -97,7 +97,7 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
-    val res= mutableMapOf<String, String>()
+    val res = mutableMapOf<String, String>()
     mapA.forEach {
         if (it.value != mapB[it.key] && mapB[it.key] != null) res[it.key] = "${it.value}, ${mapB[it.key]}"
         else res[it.key] = it.value
@@ -118,7 +118,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  */
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> =
         grades.toList().groupBy({ it.second }, { it.first }).toSortedMap(compareBy { it }).mapValues {
-            it.value.sortedDescending() }
+            it.value.sortedDescending()}
 
 
 /**
@@ -131,7 +131,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> =
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.all {it.value == b[it.key]}
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.all { it.value == b[it.key] }
 
 /**
  * Средняя
