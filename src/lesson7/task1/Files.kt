@@ -104,7 +104,7 @@ fun centerFile(inputName: String, outputName: String) {
     var max = 0
     for (line in lines) if (line.length >= max) max = line.length
     for (line in lines) {
-        if (max!! > line.length)
+        if (max > line.length)
             output.write(" ".repeat((max + line.length) / 2 - line.length))
         output.write(line)
         output.newLine()
